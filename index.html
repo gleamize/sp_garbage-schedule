@@ -327,7 +327,7 @@
         }
 
         .vacuum-stat {
-            background: linear-gradient(135度, #e8f5e8 0%, #c8e6c9 100%);
+            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
             color: #388e3c;
             font-weight: 600;
         }
@@ -387,21 +387,28 @@
         .week-section:nth-child(5) { animation-delay: 0.4s; }
         .week-section:nth-child(6) { animation-delay: 0.5s; }
 
+        /* 変更点: ヘッダー部分のスタイルをFlexboxに変更 */
         .header-container {
-            position: relative;
+            display: flex;
+            flex-direction: column-reverse; /* タイトルとボタンの順序を反転 */
+            align-items: center;
+            gap: 15px; /* タイトルとボタンの間のスペース */
             text-align: center;
-            margin-bottom: 40px;
-        }
-
-        .header-container h1 {
-            margin: 0;
-            display: inline-block;
+            padding-top: 20px; /* 上部に余白を追加 */
         }
         
-        .presence-link {
-            position: absolute;
-            top: 5px;
-            right: 5px;
+        .header-container h1 {
+            margin: 0;
+            margin-bottom: 40px; /* タイトルとコンテンツの間のスペースを維持 */
+        }
+        
+        /* 変更点: メニューコンテナのスタイル */
+        .menu-container {
+            display: flex;
+            gap: 8px; /* ボタン間のスペース */
+        }
+        
+        .menu-link {
             background: #3b82f6;
             color: white;
             padding: 10px 15px;
@@ -412,13 +419,25 @@
             box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
             transition: all 0.3s ease;
         }
-
-        .presence-link:hover {
+        
+        .menu-link:hover {
             background: #2563eb;
             transform: translateY(-2px);
             box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
         }
-
+        
+        /* 変更点: PC版表示ボタンのスタイルを灰色に変更 */
+        .pc-link {
+            background: #cbd5e0; /* 灰色 */
+            color: #4a5568;
+        }
+        
+        .pc-link:hover {
+            background: #a0aec0; /* ホバー時の灰色 */
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
         /* Mobile Adjustments */
         @media (max-width: 768px) {
             body {
@@ -466,13 +485,6 @@
             .notice-icon, .balance-icon {
                 margin: 0 0 10px 0;
             }
-
-            .presence-link {
-                position: static;
-                display: block;
-                margin: 10px auto;
-                width: fit-content;
-            }
         }
     </style>
 </head>
@@ -480,7 +492,10 @@
     <div class="container">
         <div class="header-container">
             <h1>🗑️ ゴミ回収ペア表</h1>
-            <a href="https://gleamize.github.io/sp_presence-schedule/" class="presence-link">立会いシフト表</a>
+            <div class="menu-container">
+                <a href="https://gleamize.github.io/garbage-schedule/" class="menu-link pc-link">PC版表示</a>
+                <a href="https://gleamize.github.io/sp_presence-schedule/" class="menu-link">立会いシフト表</a>
+            </div>
         </div>
 
         <div class="week-section">
