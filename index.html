@@ -24,15 +24,61 @@
             border: 1px solid #e2e8f0;
         }
 
+        /* ヘッダー（既存） */
+        .header-container {
+            display: flex;
+            flex-direction: column-reverse; /* 上=メニュー / 下=タイトル */
+            align-items: center;
+            gap: 15px;
+            text-align: center;
+            padding-top: 20px;
+        }
         h1 {
+            margin: 0;
             text-align: center;
             color: #1e40af;
             font-size: 2.2em;
-            margin-bottom: 40px;
             font-weight: 700;
             letter-spacing: 1px;
         }
+        .menu-container { display: flex; gap: 8px; }
+        .menu-link {
+            background: #3b82f6; color: white; padding: 10px 15px; border-radius: 8px; text-decoration: none;
+            font-weight: 600; font-size: 0.9em; box-shadow: 0 4px 6px rgba(0,0,0,0.1); transition: all 0.3s ease;
+        }
+        .menu-link:hover { background: #2563eb; transform: translateY(-2px); box-shadow: 0 6px 8px rgba(0,0,0,0.15); }
+        .pc-link { background: #cbd5e0; color: #4a5568; }
+        .pc-link:hover { background: #a0aec0; }
 
+        /* === マルキー（右→左・往復）：赤枠・幅いっぱい・上下等間隔 === */
+        .marquee-wrap {
+            margin: 24px 0;                 /* タイトルとの間も、次の表との間も等間隔 */
+            border: 2px solid #ef4444;      /* 赤い枠 */
+            border-radius: 10px;
+            background: rgba(239, 68, 68, .08); /* 薄い赤背景 */
+            overflow: hidden;
+            width: 100%;                    /* コンテナ幅いっぱい */
+        }
+        .marquee {
+            position: relative;
+            height: 44px;                   /* 安定した高さ（必要に応じて微調整可） */
+        }
+        .marquee-content {
+            position: absolute;             /* JSで左右に移動させる */
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);    /* 垂直中央揃え（XはJSで上書き） */
+            white-space: nowrap;
+            will-change: transform;
+            padding: 0 16px;
+            font-weight: 800;
+            font-size: 1.05em;
+            color: #ef4444;                 /* 文字は赤 */
+            pointer-events: none;
+        }
+        /* === ここまで === */
+
+        /* 以降は既存デザインそのまま */
         .week-section {
             margin-bottom: 35px;
             border-radius: 8px;
@@ -40,456 +86,66 @@
             box-shadow: 0 4px 12px rgba(30, 64, 175, 0.1);
             background: white;
             border: 1px solid #e2e8f0;
+            animation: fadeInUp 0.6s ease-out;
         }
-
-        .week-section:hover {
-            box-shadow: 0 8px 20px rgba(30, 64, 175, 0.15);
-            transform: translateY(-2px);
-            transition: all 0.3s ease;
-        }
-
         .week-header {
             background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            padding: 18px 20px;
-            font-size: 1.3em;
-            font-weight: 600;
-            text-align: center;
-            margin: 0;
+            color: white; padding: 18px 20px; font-size: 1.3em; font-weight: 600; text-align: center; margin: 0;
         }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95em;
-        }
-
+        table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
         th {
             background: linear-gradient(135deg, #475569 0%, #334155 100%);
-            color: white;
-            font-weight: 600;
-            padding: 16px 12px;
-            text-align: center;
-            border-bottom: 2px solid #3b82f6;
-            font-size: 1em;
+            color: white; font-weight: 600; padding: 16px 12px; text-align: center;
+            border-bottom: 2px solid #3b82f6; font-size: 1em;
         }
-
-        td {
-            padding: 14px 12px;
-            text-align: center;
-            border-bottom: 1px solid #f1f5f9;
-            transition: all 0.2s ease;
-        }
-
-        tr:hover td {
-            background-color: #f8fafc;
-        }
-
-        .day-cell {
-            background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
-            font-weight: 600;
-            color: white;
-            width: 70px;
-        }
-
-        .upper-floor {
-            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-            color: #0277bd;
-            border-left: 4px solid #03a9f4;
-        }
-
-        .lower-floor {
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            color: #7b1fa2;
-            border-left: 4px solid #9c27b0;
-        }
-
-        .vacuum {
-            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-            color: #388e3c;
-            border-left: 4px solid #4caf50;
-        }
-
+        td { padding: 14px 12px; text-align: center; border-bottom: 1px solid #f1f5f9; transition: all 0.2s ease; }
+        tr:hover td { background-color: #f8fafc; }
+        .day-cell { background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%); font-weight: 600; color: white; width: 70px; }
+        .upper-floor { background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); color: #0277bd; border-left: 4px solid #03a9f4; }
+        .lower-floor { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); color: #7b1fa2; border-left: 4px solid #9c27b0; }
+        .vacuum { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #388e3c; border-left: 4px solid #4caf50; }
         .person-name {
-            display: inline-block;
-            padding: 5px 10px;
-            border-radius: 6px;
-            background: white;
-            margin: 2px;
-            font-size: 0.9em;
-            border: 1px solid #e2e8f0;
-            font-weight: 500;
+            display: inline-block; padding: 5px 10px; border-radius: 6px; background: white;
+            margin: 2px; font-size: 0.9em; border: 1px solid #e2e8f0; font-weight: 500;
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
-        .person-name strong {
-            font-weight: 700;
-        }
-
-        /* 詳細説明セクション */
         .info-section {
-            margin-top: 40px;
-            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08);
+            margin-top: 40px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 12px;
+            border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(30,64,175,0.08);
         }
+        .info-header { background: linear-gradient(135deg, #475569 0%, #334155 100%); color: white; padding: 16px 20px; font-size: 1.2em; font-weight: 600; margin: 0; text-align: center; }
+        .info-content { padding: 25px; }
+        .info-item { margin-bottom: 20px; padding: 15px; border-radius: 8px; border-left: 4px solid; }
+        .upper-info { background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); border-left-color: #03a9f4; }
+        .lower-info { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left-color: #9c27b0; }
+        .vacuum-info { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border-left-color: #4caf50; }
 
-        .info-header {
-            background: linear-gradient(135deg, #475569 0%, #334155 100%);
-            color: white;
-            padding: 16px 20px;
-            font-size: 1.2em;
-            font-weight: 600;
-            margin: 0;
-            text-align: center;
-        }
+        .stats-section { margin-top: 30px; background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08); }
+        .stats-header { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 16px 20px; font-size: 1.2em; font-weight: 600; margin: 0; text-align: center; }
+        .stats-content { padding: 25px; }
+        .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
+        .stats-table th { background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; font-weight: 600; padding: 14px 10px; text-align: center; font-size: 0.95em; }
+        .stats-table td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f1f5f9; font-size: 0.9em; }
 
-        .info-content {
-            padding: 25px;
-        }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        .info-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid;
-        }
-
-        .upper-info {
-            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-            border-left-color: #03a9f4;
-        }
-
-        .lower-info {
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            border-left-color: #9c27b0;
-        }
-
-        .vacuum-info {
-            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-            border-left-color: #4caf50;
-        }
-
-        .info-title {
-            font-size: 1.1em;
-            font-weight: 600;
-            color: #1e40af;
-            margin-bottom: 8px;
-        }
-
-        .info-desc {
-            font-size: 0.95em;
-            color: #475569;
-            line-height: 1.5;
-        }
-
-        .floor-num {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-weight: 600;
-            font-size: 0.9em;
-            margin: 0 1px;
-        }
-
-        .vacuum-schedule {
-            margin-top: 8px;
-        }
-
-        .schedule-row {
-            display: flex;
-            align-items: center;
-            margin-bottom: 6px;
-            font-size: 0.95em;
-        }
-
-        .day-label {
-            background: #64748b;
-            color: white;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-weight: 500;
-            min-width: 70px;
-            text-align: center;
-            margin-right: 12px;
-            font-size: 0.85em;
-        }
-
-        .schedule-text {
-            color: #475569;
-            line-height: 1.4;
-        }
-
-        .notice-box {
-            background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%);
-            border: 1px solid #f59e0b;
-            border-radius: 8px;
-            padding: 16px;
-            margin-top: 20px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .notice-icon {
-            font-size: 1.3em;
-            margin-right: 12px;
-            margin-top: 2px;
-        }
-
-        .notice-text {
-            color: #92400e;
-            font-size: 0.95em;
-            line-height: 1.6;
-            flex: 1;
-        }
-
-        .notice-text strong {
-            color: #1e40af;
-            font-weight: 700;
-        }
-
-        /* 統計セクション */
-        .stats-section {
-            margin-top: 30px;
-            background: white;
-            border-radius: 12px;
-            border: 1px solid #e2e8f0;
-            overflow: hidden;
-            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08);
-        }
-
-        .stats-header {
-            background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%);
-            color: white;
-            padding: 16px 20px;
-            font-size: 1.2em;
-            font-weight: 600;
-            margin: 0;
-            text-align: center;
-        }
-
-        .stats-content {
-            padding: 25px;
-        }
-
-        .stats-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-bottom: 20px;
-            border-radius: 8px;
-            overflow: hidden;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
-        }
-
-        .stats-table th {
-            background: linear-gradient(135deg, #64748b 0%, #475569 100%);
-            color: white;
-            font-weight: 600;
-            padding: 14px 10px;
-            text-align: center;
-            font-size: 0.95em;
-        }
-
-        .stats-table td {
-            padding: 12px 10px;
-            text-align: center;
-            border-bottom: 1px solid #f1f5f9;
-            font-size: 0.9em;
-        }
-
-        .stats-table tbody tr:hover {
-            background-color: #f8fafc;
-        }
-
-        .stats-table tbody tr:last-child td {
-            border-bottom: none;
-        }
-
-        .member-name {
-            background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%);
-            font-weight: 600;
-            color: #1e40af;
-        }
-
-        .upper-stat {
-            background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%);
-            color: #0277bd;
-            font-weight: 600;
-        }
-
-        .lower-stat {
-            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
-            color: #7b1fa2;
-            font-weight: 600;
-        }
-
-        .vacuum-stat {
-            background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%);
-            color: #388e3c;
-            font-weight: 600;
-        }
-
-        .total-stat {
-            background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%);
-            color: #92400e;
-            font-weight: 700;
-            font-size: 1em;
-        }
-
-        .balance-note {
-            background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%);
-            border: 1px solid #22c55e;
-            border-radius: 8px;
-            padding: 16px;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .balance-icon {
-            font-size: 1.3em;
-            margin-right: 12px;
-            margin-top: 2px;
-        }
-
-        .balance-text {
-            color: #15803d;
-            font-size: 0.95em;
-            line-height: 1.6;
-            flex: 1;
-        }
-
-        .balance-text strong {
-            color: #1e40af;
-            font-weight: 700;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .week-section {
-            animation: fadeInUp 0.6s ease-out;
-        }
-
-        .week-section:nth-child(2) { animation-delay: 0.1s; }
-        .week-section:nth-child(3) { animation-delay: 0.2s; }
-        .week-section:nth-child(4) { animation-delay: 0.3s; }
-        .week-section:nth-child(5) { animation-delay: 0.4s; }
-        .week-section:nth-child(6) { animation-delay: 0.5s; }
-
-        /* 変更点: ヘッダー部分のスタイルをFlexboxに変更 */
-        .header-container {
-            display: flex;
-            flex-direction: column-reverse; /* タイトルとボタンの順序を反転 */
-            align-items: center;
-            gap: 15px; /* タイトルとボタンの間のスペース */
-            text-align: center;
-            padding-top: 20px; /* 上部に余白を追加 */
-        }
-        
-        .header-container h1 {
-            margin: 0;
-            margin-bottom: 40px; /* タイトルとコンテンツの間のスペースを維持 */
-        }
-        
-        /* 変更点: メニューコンテナのスタイル */
-        .menu-container {
-            display: flex;
-            gap: 8px; /* ボタン間のスペース */
-        }
-        
-        .menu-link {
-            background: #3b82f6;
-            color: white;
-            padding: 10px 15px;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 0.9em;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-        
-        .menu-link:hover {
-            background: #2563eb;
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* 変更点: PC版表示ボタンのスタイルを灰色に変更 */
-        .pc-link {
-            background: #cbd5e0; /* 灰色 */
-            color: #4a5568;
-        }
-        
-        .pc-link:hover {
-            background: #a0aec0; /* ホバー時の灰色 */
-            transform: translateY(-2px);
-            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
-        }
-        
-        /* Mobile Adjustments */
+        /* Mobile */
         @media (max-width: 768px) {
-            body {
-                padding: 10px;
-            }
-
-            .container {
-                padding: 20px 15px;
-            }
-
-            h1 {
-                font-size: 1.8em;
-                margin-bottom: 20px;
-            }
-
-            .week-header, .info-header, .stats-header {
-                font-size: 1.1em;
-                padding: 15px 10px;
-            }
-
-            .table-container {
-                overflow-x: auto;
-                -webkit-overflow-scrolling: touch;
-                margin-bottom: 20px;
-            }
-
-            table {
-                min-width: 600px;
-            }
-
-            td {
-                padding: 10px 8px;
-            }
-
-            .person-name {
-                padding: 3px 6px;
-                font-size: 0.8em;
-            }
-
-            .notice-box, .balance-note {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-
-            .notice-icon, .balance-icon {
-                margin: 0 0 10px 0;
-            }
+            body { padding: 10px; }
+            .container { padding: 20px 15px; }
+            h1 { font-size: 1.8em; }
+            .week-header, .info-header, .stats-header { font-size: 1.1em; padding: 15px 10px; }
+            .table-container { overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 20px; }
+            table { min-width: 600px; }
+            td { padding: 10px 8px; }
+            .person-name { padding: 3px 6px; font-size: 0.8em; }
         }
     </style>
 </head>
 <body>
     <div class="container">
+        <!-- ヘッダー -->
         <div class="header-container">
             <h1>🗑️ ゴミ回収ペア表</h1>
             <div class="menu-container">
@@ -498,6 +154,14 @@
             </div>
         </div>
 
+        <!-- ★ マルキー：タイトルと第1週の中間（上下24px） -->
+        <div class="marquee-wrap" role="status" aria-live="polite">
+            <div class="marquee">
+                <span id="marquee-content" class="marquee-content">読み込み中...</span>
+            </div>
+        </div>
+
+        <!-- 第1週 -->
         <div class="week-section">
             <h2 class="week-header">第1週</h2>
             <div class="table-container">
@@ -546,198 +210,83 @@
             </div>
         </div>
 
+        <!-- 第2週 -->
         <div class="week-section">
             <h2 class="week-header">第2週</h2>
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>曜日</th>
-                            <th>🏢 上階</th>
-                            <th>🏠 下階</th>
-                            <th>🧹 バキューム</th>
-                        </tr>
+                        <tr><th>曜日</th><th>🏢 上階</th><th>🏠 下階</th><th>🧹 バキューム</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="day-cell">月</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山城</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">火</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">水</td>
-                            <td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">木</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山本</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">金</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td>
-                        </tr>
+                        <tr><td class="day-cell">月</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="vacuum"><span class="person-name"><strong>山城</strong></span></td></tr>
+                        <tr><td class="day-cell">火</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td></tr>
+                        <tr><td class="day-cell">水</td><td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td><td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td></tr>
+                        <tr><td class="day-cell">木</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>山本</strong></span></td></tr>
+                        <tr><td class="day-cell">金</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="lower-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- 第3週 -->
         <div class="week-section">
             <h2 class="week-header">第3週</h2>
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>曜日</th>
-                            <th>🏢 上階</th>
-                            <th>🏠 下階</th>
-                            <th>🧹 バキューム</th>
-                        </tr>
+                        <tr><th>曜日</th><th>🏢 上階</th><th>🏠 下階</th><th>🧹 バキューム</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="day-cell">月</td>
-                            <td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山本</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">火</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">水</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">木</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山城</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">金</td>
-                            <td class="upper-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td>
-                        </tr>
+                        <tr><td class="day-cell">月</td><td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>山本</strong></span></td></tr>
+                        <tr><td class="day-cell">火</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td></tr>
+                        <tr><td class="day-cell">水</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td><td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td></tr>
+                        <tr><td class="day-cell">木</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>山城</strong></span></td></tr>
+                        <tr><td class="day-cell">金</td><td class="upper-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- 第4週 -->
         <div class="week-section">
             <h2 class="week-header">第4週</h2>
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>曜日</th>
-                            <th>🏢 上階</th>
-                            <th>🏠 下階</th>
-                            <th>🧹 バキューム</th>
-                        </tr>
+                        <tr><th>曜日</th><th>🏢 上階</th><th>🏠 下階</th><th>🧹 バキューム</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="day-cell">月</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山本</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">火</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山城</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">水</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">木</td>
-                            <td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">金</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td>
-                        </tr>
+                        <tr><td class="day-cell">月</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>山本</strong></span></td></tr>
+                        <tr><td class="day-cell">火</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="vacuum"><span class="person-name"><strong>山城</strong></span></td></tr>
+                        <tr><td class="day-cell">水</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td></tr>
+                        <tr><td class="day-cell">木</td><td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td><td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td></tr>
+                        <tr><td class="day-cell">金</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="lower-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- 第5週 -->
         <div class="week-section">
             <h2 class="week-header">第5週</h2>
             <div class="table-container">
                 <table>
                     <thead>
-                        <tr>
-                            <th>曜日</th>
-                            <th>🏢 上階</th>
-                            <th>🏠 下階</th>
-                            <th>🧹 バキューム</th>
-                        </tr>
+                        <tr><th>曜日</th><th>🏢 上階</th><th>🏠 下階</th><th>🧹 バキューム</th></tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="day-cell">月</td>
-                            <td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山本</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">火</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>山城</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">水</td>
-                            <td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">木</td>
-                            <td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td>
-                        </tr>
-                        <tr>
-                            <td class="day-cell">金</td>
-                            <td class="upper-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td>
-                            <td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td>
-                            <td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td>
-                        </tr>
+                        <tr><td class="day-cell">月</td><td class="upper-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>山本</strong></span></td></tr>
+                        <tr><td class="day-cell">火</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>山城</strong></span></td></tr>
+                        <tr><td class="day-cell">水</td><td class="upper-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>佐武</strong></span></td><td class="vacuum"><span class="person-name"><strong>金丸</strong></span></td></tr>
+                        <tr><td class="day-cell">木</td><td class="upper-floor"><span class="person-name"><strong>逢坂</strong></span><span class="person-name"><strong>山本</strong></span></td><td class="lower-floor"><span class="person-name"><strong>金丸</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="vacuum"><span class="person-name"><strong>佐武</strong></span></td></tr>
+                        <tr><td class="day-cell">金</td><td class="upper-floor"><span class="person-name"><strong>佐武</strong></span><span class="person-name"><strong>山城</strong></span></td><td class="lower-floor"><span class="person-name"><strong>山本</strong></span><span class="person-name"><strong>金丸</strong></span></td><td class="vacuum"><span class="person-name"><strong>逢坂</strong></span></td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
 
+        <!-- 説明・統計（既存どおり） -->
         <div class="info-section">
             <h2 class="info-header">📋 業務内容の詳細</h2>
             <div class="info-content">
@@ -745,32 +294,18 @@
                     <div class="info-title">🏢 上階</div>
                     <div class="info-desc"><span class="floor-num">17F～15F</span> ゴミ回収</div>
                 </div>
-
                 <div class="info-item lower-info">
                     <div class="info-title">🏠 下階</div>
-                    <div class="info-desc">
-                        <span class="floor-num">14F～11F</span>（木曜のみ <span class="floor-num">14F～12F</span>）ゴミ回収
-                    </div>
+                    <div class="info-desc"><span class="floor-num">14F～11F</span>（木曜のみ <span class="floor-num">14F～12F</span>）ゴミ回収</div>
                 </div>
-
                 <div class="info-item vacuum-info">
                     <div class="info-title">🧹 バキューム</div>
                     <div class="vacuum-schedule">
-                        <div class="schedule-row">
-                            <span class="day-label">月・水・金</span>
-                            <span class="schedule-text"><span class="floor-num">10F</span>ゴミ回収 → <span class="floor-num">17F</span>机上＆バキューム</span>
-                        </div>
-                        <div class="schedule-row">
-                            <span class="day-label">火</span>
-                            <span class="schedule-text"><span class="floor-num">10F</span>ゴミ回収 → <span class="floor-num">10F</span>バキューム</span>
-                        </div>
-                        <div class="schedule-row">
-                            <span class="day-label">木</span>
-                            <span class="schedule-text"><span class="floor-num">11F</span>ゴミ回収 → <span class="floor-num">11F</span>バキューム</span>
-                        </div>
+                        <div class="schedule-row"><span class="day-label">月・水・金</span><span class="schedule-text"><span class="floor-num">10F</span>ゴミ回収 → <span class="floor-num">17F</span>机上＆バキューム</span></div>
+                        <div class="schedule-row"><span class="day-label">火</span><span class="schedule-text"><span class="floor-num">10F</span>ゴミ回収 → <span class="floor-num">10F</span>バキューム</span></div>
+                        <div class="schedule-row"><span class="day-label">木</span><span class="schedule-text"><span class="floor-num">11F</span>ゴミ回収 → <span class="floor-num">11F</span>バキューム</span></div>
                     </div>
                 </div>
-
                 <div class="notice-box">
                     <div class="notice-icon">💡</div>
                     <div class="notice-text">
@@ -795,45 +330,14 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td class="member-name">逢坂</td>
-                                <td class="upper-stat">10回</td>
-                                <td class="lower-stat">10回（2回）</td>
-                                <td class="vacuum-stat">5回</td>
-                                <td class="total-stat">25回</td>
-                            </tr>
-                            <tr>
-                                <td class="member-name">山本</td>
-                                <td class="upper-stat">10回</td>
-                                <td class="lower-stat">10回（2回）</td>
-                                <td class="vacuum-stat">5回</td>
-                                <td class="total-stat">25回</td>
-                            </tr>
-                            <tr>
-                                <td class="member-name">金丸</td>
-                                <td class="upper-stat">10回</td>
-                                <td class="lower-stat">10回（2回）</td>
-                                <td class="vacuum-stat">5回</td>
-                                <td class="total-stat">25回</td>
-                            </tr>
-                            <tr>
-                                <td class="member-name">佐武</td>
-                                <td class="upper-stat">10回</td>
-                                <td class="lower-stat">10回（2回）</td>
-                                <td class="vacuum-stat">5回</td>
-                                <td class="total-stat">25回</td>
-                            </tr>
-                            <tr>
-                                <td class="member-name">山城</td>
-                                <td class="upper-stat">10回</td>
-                                <td class="lower-stat">10回（2回）</td>
-                                <td class="vacuum-stat">5回</td>
-                                <td class="total-stat">25回</td>
-                            </tr>
+                            <tr><td class="member-name">逢坂</td><td class="upper-stat">10回</td><td class="lower-stat">10回（2回）</td><td class="vacuum-stat">5回</td><td class="total-stat">25回</td></tr>
+                            <tr><td class="member-name">山本</td><td class="upper-stat">10回</td><td class="lower-stat">10回（2回）</td><td class="vacuum-stat">5回</td><td class="total-stat">25回</td></tr>
+                            <tr><td class="member-name">金丸</td><td class="upper-stat">10回</td><td class="lower-stat">10回（2回）</td><td class="vacuum-stat">5回</td><td class="total-stat">25回</td></tr>
+                            <tr><td class="member-name">佐武</td><td class="upper-stat">10回</td><td class="lower-stat">10回（2回）</td><td class="vacuum-stat">5回</td><td class="total-stat">25回</td></tr>
+                            <tr><td class="member-name">山城</td><td class="upper-stat">10回</td><td class="lower-stat">10回（2回）</td><td class="vacuum-stat">5回</td><td class="total-stat">25回</td></tr>
                         </tbody>
                     </table>
                 </div>
-
                 <div class="balance-note">
                     <div class="balance-icon">⚖️</div>
                     <div class="balance-text">
@@ -843,5 +347,128 @@
             </div>
         </div>
     </div>
+
+    <!-- 週次メッセージ制御（JST・毎週月曜12:00更新・5週ループ）＋ マルキー往復制御 -->
+    <script>
+        // ====== 設定ここから ======
+        const PHRASES = [
+            "今週は第1週です！",
+            "今週は第2週です！",
+            "今週は第3週です！",
+            "今週は第4週です！",
+            "今週は第5週です！"
+        ];
+        // 第1週が始まるJSTの「月曜12:00」：必要に応じて変更
+        const CYCLE_START_JST = "2025-09-08T12:00:00+09:00";
+        // マルキーの速度（px/秒）
+        const MARQUEE_SPEED = 40;
+        // ====== 設定ここまで ======
+
+        const MS_PER_WEEK = 7 * 24 * 60 * 60 * 1000;
+
+        function nowInTokyo() {
+            const dtf = new Intl.DateTimeFormat('en-CA', {
+                timeZone: 'Asia/Tokyo',
+                year: 'numeric', month: '2-digit', day: '2-digit',
+                hour: '2-digit', minute: '2-digit', second: '2-digit',
+                hourCycle: 'h23'
+            });
+            const parts = Object.fromEntries(dtf.formatToParts(new Date()).map(p => [p.type, p.value]));
+            return new Date(`${parts.year}-${parts.month}-${parts.day}T${parts.hour}:${parts.minute}:${parts.second}+09:00`);
+        }
+
+        function phraseIndexFor(now, cycleStart) {
+            const diff = now.getTime() - cycleStart.getTime();
+            const weeks = Math.floor(diff / MS_PER_WEEK);
+            return ((weeks % 5) + 5) % 5; // 0..4
+        }
+
+        function nextBoundaryFrom(now, cycleStart) {
+            const diff = now.getTime() - cycleStart.getTime();
+            const weeks = Math.floor(diff / MS_PER_WEEK) + 1;
+            return new Date(cycleStart.getTime() + weeks * MS_PER_WEEK); // 次の月曜12:00
+        }
+
+        function setMarqueeText(text) {
+            const el = document.getElementById('marquee-content');
+            if (!el) return;
+            el.textContent = text;
+            // テキストを差し替えたら、右端からの往復アニメを再初期化
+            requestAnimationFrame(startMarquee);
+        }
+
+        // --- 右端から左端まで往復するマルキー ---
+        let marqueeAnimation;
+        function startMarquee() {
+            const wrap = document.querySelector('.marquee-wrap');
+            const track = document.querySelector('.marquee');
+            const content = document.getElementById('marquee-content');
+            if (!wrap || !track || !content) return;
+
+            // 既存アニメを止める
+            if (marqueeAnimation) marqueeAnimation.cancel();
+            content.getAnimations().forEach(a => a.cancel());
+
+            // 幅を取得
+            const containerWidth = wrap.clientWidth;
+            const contentWidth = content.offsetWidth;
+
+            // 右端ぴったり（文字が一切切れない位置）
+            const startX = Math.max(0, containerWidth - contentWidth);
+            // 左端ぴったり（切れ始める直前）
+            const endX = 0;
+
+            // X位置を初期化（Y方向の中央揃えはCSS）
+            content.style.transform = `translate(${startX}px, -50%)`;
+
+            const distance = Math.abs(startX - endX);
+            const duration = Math.max(1000, (distance / MARQUEE_SPEED) * 1000); // px/秒 → ms
+
+            marqueeAnimation = content.animate(
+                [
+                    { transform: `translate(${startX}px, -50%)` },
+                    { transform: `translate(${endX}px, -50%)` }
+                ],
+                {
+                    duration,
+                    iterations: Infinity,
+                    direction: 'alternate',   // 左端で反転して右へ戻る
+                    easing: 'linear',
+                    fill: 'both'
+                }
+            );
+
+            // ホバーで一時停止
+            wrap.addEventListener('mouseenter', () => marqueeAnimation && marqueeAnimation.pause(), { once: false });
+            wrap.addEventListener('mouseleave', () => marqueeAnimation && marqueeAnimation.play(), { once: false });
+        }
+
+        // --- 週次メッセージの切り替え ---
+        function renderBanner() {
+            const cycleStart = new Date(CYCLE_START_JST);
+            const tokyoNow = nowInTokyo();
+            const idx = phraseIndexFor(tokyoNow, cycleStart);
+            setMarqueeText(PHRASES[idx]);
+
+            const next = nextBoundaryFrom(tokyoNow, cycleStart);
+            const delay = Math.max(1000, Math.min(next.getTime() - tokyoNow.getTime(), MS_PER_WEEK - 1000));
+            setTimeout(() => {
+                renderBanner();
+                setInterval(renderBanner, MS_PER_WEEK);
+            }, delay);
+        }
+
+        // リサイズ時も右端から再スタート
+        let _resizeTimer = null;
+        window.addEventListener('resize', () => {
+            clearTimeout(_resizeTimer);
+            _resizeTimer = setTimeout(startMarquee, 150);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            renderBanner();
+            startMarquee();
+        });
+    </script>
 </body>
 </html>
