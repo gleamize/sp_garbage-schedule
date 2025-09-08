@@ -61,7 +61,7 @@
         }
         .marquee {
             position: relative;
-            height: 44px;                   /* 安定した高さ（必要に応じて微調整可） */
+            height: 44px;                   /* 安定した高さ */
         }
         .marquee-content {
             position: absolute;             /* JSで左右に移動させる */
@@ -76,9 +76,9 @@
             color: #ef4444;                 /* 文字は赤 */
             pointer-events: none;
         }
-        /* === ここまで === */
+        /* === ここまで（既存） === */
 
-        /* 以降は既存デザインそのまま */
+        /* 以降は既存デザインそのまま（週テーブル） */
         .week-section {
             margin-bottom: 35px;
             border-radius: 8px;
@@ -110,23 +110,59 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.1);
         }
 
+        /* ======== ここから：「業務内容の詳細」以降を“右ファイルと同一”の配色/フォントに統一 ======== */
         .info-section {
-            margin-top: 40px; background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%); border-radius: 12px;
-            border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(30,64,175,0.08);
+            margin-top: 40px;
+            background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
+            border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden;
+            box-shadow: 0 4px 12px rgba(30,64,175,0.08);
         }
-        .info-header { background: linear-gradient(135deg, #475569 0%, #334155 100%); color: white; padding: 16px 20px; font-size: 1.2em; font-weight: 600; margin: 0; text-align: center; }
+        .info-header {
+            background: linear-gradient(135deg, #475569 0%, #334155 100%);
+            color: white; padding: 16px 20px; font-size: 1.2em; font-weight: 600; margin: 0; text-align: center;
+        }
         .info-content { padding: 25px; }
         .info-item { margin-bottom: 20px; padding: 15px; border-radius: 8px; border-left: 4px solid; }
         .upper-info { background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); border-left-color: #03a9f4; }
         .lower-info { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); border-left-color: #9c27b0; }
         .vacuum-info { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); border-left-color: #4caf50; }
 
+        /* 右ファイルの見出し・本文フォント設定を反映 */
+        .info-title { font-size: 1.1em; font-weight: 600; color: #1e40af; margin-bottom: 8px; }
+        .info-desc  { font-size: 0.95em; color: #475569; line-height: 1.5; }
+
+        .floor-num { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 2px 6px; border-radius: 4px; font-weight: 600; font-size: 0.9em; margin: 0 1px; }
+        .vacuum-schedule { margin-top: 8px; }
+        .schedule-row { display: flex; align-items: center; margin-bottom: 6px; font-size: 0.95em; }
+        .day-label { background: #64748b; color: white; padding: 3px 8px; border-radius: 4px; font-weight: 500; min-width: 70px; text-align: center; margin-right: 12px; font-size: 0.85em; }
+        .schedule-text { color: #475569; line-height: 1.4; }
+
+        .notice-box { background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%); border: 1px solid #f59e0b; border-radius: 8px; padding: 16px; margin-top: 20px; display: flex; align-items: flex-start; }
+        .notice-icon { font-size: 1.3em; margin-right: 12px; margin-top: 2px; }
+        .notice-text { color: #92400e; font-size: 0.95em; line-height: 1.6; flex: 1; }
+        .notice-text strong { color: #1e40af; font-weight: 700; }
+
         .stats-section { margin-top: 30px; background: white; border-radius: 12px; border: 1px solid #e2e8f0; overflow: hidden; box-shadow: 0 4px 12px rgba(30, 64, 175, 0.08); }
         .stats-header { background: linear-gradient(135deg, #1e40af 0%, #3b82f6 100%); color: white; padding: 16px 20px; font-size: 1.2em; font-weight: 600; margin: 0; text-align: center; }
         .stats-content { padding: 25px; }
         .stats-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; border-radius: 8px; overflow: hidden; box-shadow: 0 2px 8px rgba(0,0,0,0.06); }
         .stats-table th { background: linear-gradient(135deg, #64748b 0%, #475569 100%); color: white; font-weight: 600; padding: 14px 10px; text-align: center; font-size: 0.95em; }
-        .stats-table td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f1f5f9; font-size: 0.9em; }
+        /* 右ファイルに合わせて td のフォントサイズを 1.0em に */
+        .stats-table td { padding: 12px 10px; text-align: center; border-bottom: 1px solid #f1f5f9; font-size: 1.0em; }
+        .stats-table tbody tr:hover { background-color: #f8fafc; }
+        .stats-table tbody tr:last-child td { border-bottom: none; }
+
+        .member-name { background: linear-gradient(135deg, #f1f5f9 0%, #e2e8f0 100%); font-weight: 600; color: #1e40af; }
+        .upper-stat { background: linear-gradient(135deg, #e0f2fe 0%, #b3e5fc 100%); color: #0277bd; font-weight: 600; }
+        .lower-stat { background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%); color: #7b1fa2; font-weight: 600; }
+        .vacuum-stat { background: linear-gradient(135deg, #e8f5e8 0%, #c8e6c9 100%); color: #388e3c; font-weight: 600; }
+        .total-stat { background: linear-gradient(135deg, #fef3cd 0%, #fde68a 100%); color: #92400e; font-weight: 700; font-size: 1.1em; }
+
+        .balance-note { background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%); border: 1px solid #22c55e; border-radius: 8px; padding: 16px; display: flex; align-items: flex-start; }
+        .balance-icon { font-size: 1.3em; margin-right: 12px; margin-top: 2px; }
+        .balance-text { color: #15803d; font-size: 0.95em; line-height: 1.6; flex: 1; }
+        .balance-text strong { color: #1e40af; font-weight: 700; }
+        /* ======== 統一ここまで ======== */
 
         @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
@@ -286,7 +322,7 @@
             </div>
         </div>
 
-        <!-- 説明・統計（既存どおり） -->
+        <!-- 説明・統計（右ファイルの配色/フォントに統一） -->
         <div class="info-section">
             <h2 class="info-header">📋 業務内容の詳細</h2>
             <div class="info-content">
@@ -358,7 +394,7 @@
             "今週は第4週です！",
             "今週は第5週です！"
         ];
-        // 第1週が始まるJSTの「月曜12:00」：必要に応じて変更
+        // 第1週が始まるJSTの「月曜12:00」
         const CYCLE_START_JST = "2025-09-08T12:00:00+09:00";
         // マルキーの速度（px/秒）
         const MARQUEE_SPEED = 30;
@@ -401,9 +437,8 @@
         let marqueeAnimation;
         function startMarquee() {
             const wrap = document.querySelector('.marquee-wrap');
-            const track = document.querySelector('.marquee');
             const content = document.getElementById('marquee-content');
-            if (!wrap || !track || !content) return;
+            if (!wrap || !content) return;
 
             // 既存アニメを止める
             if (marqueeAnimation) marqueeAnimation.cancel();
@@ -418,7 +453,7 @@
             // 左端ぴったり（切れ始める直前）
             const endX = 0;
 
-            // X位置を初期化（Y方向の中央揃えはCSS）
+            // X初期化（YはCSSで-50%）
             content.style.transform = `translate(${startX}px, -50%)`;
 
             const distance = Math.abs(startX - endX);
@@ -432,43 +467,36 @@
                 {
                     duration,
                     iterations: Infinity,
-                    direction: 'alternate',   // 左端で反転して右へ戻る
-                    easing: 'linear',
-                    fill: 'both'
+                    direction: 'alternate',
+                    easing: 'linear'
                 }
             );
-
-            // ホバーで一時停止
-            wrap.addEventListener('mouseenter', () => marqueeAnimation && marqueeAnimation.pause(), { once: false });
-            wrap.addEventListener('mouseleave', () => marqueeAnimation && marqueeAnimation.play(), { once: false });
         }
 
-        // --- 週次メッセージの切り替え ---
-        function renderBanner() {
-            const cycleStart = new Date(CYCLE_START_JST);
-            const tokyoNow = nowInTokyo();
-            const idx = phraseIndexFor(tokyoNow, cycleStart);
+        // 初期メッセージ設定
+        (function init() {
+            const start = new Date(CYCLE_START_JST);
+            const now = nowInTokyo();
+            const idx = phraseIndexFor(now, start);
             setMarqueeText(PHRASES[idx]);
 
-            const next = nextBoundaryFrom(tokyoNow, cycleStart);
-            const delay = Math.max(1000, Math.min(next.getTime() - tokyoNow.getTime(), MS_PER_WEEK - 1000));
-            setTimeout(() => {
-                renderBanner();
-                setInterval(renderBanner, MS_PER_WEEK);
-            }, delay);
-        }
+            // リサイズで幅が変わったらアニメ再計算
+            window.addEventListener('resize', () => startMarquee());
 
-        // リサイズ時も右端から再スタート
-        let _resizeTimer = null;
-        window.addEventListener('resize', () => {
-            clearTimeout(_resizeTimer);
-            _resizeTimer = setTimeout(startMarquee, 150);
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            renderBanner();
-            startMarquee();
-        });
+            // 週境界で文言更新（安全マージン付き）
+            function scheduleNextTick() {
+                const n = nowInTokyo();
+                const next = nextBoundaryFrom(n, start);
+                const ms = Math.max(1000, next.getTime() - n.getTime() + 2000);
+                setTimeout(() => {
+                    const cur = nowInTokyo();
+                    const i = phraseIndexFor(cur, start);
+                    setMarqueeText(PHRASES[i]);
+                    scheduleNextTick();
+                }, ms);
+            }
+            scheduleNextTick();
+        })();
     </script>
 </body>
 </html>
